@@ -52,12 +52,12 @@ def calculateCrc(message):
 
 """Builds a command string. Doesn't work for all function codes at the moment
     Should work for PresetMultipleRegisters"""
-def buildCommandString(slaveId, functionCode, register, numRegisters, numBytes, bytes):
+def buildCommandString(slaveId, functionCode, register, numRegisters, numBytes, inputBytes):
     while len(numRegisters) < 4:
         numRegisters = "0" + numRegisters
     while(len(numBytes) < 2):
         numBytes = "0" + numBytes
-    output = slaveId + functionCode + register + numRegisters + numBytes + bytes
+    output = slaveId + functionCode + register + numRegisters + numBytes + inputBytes
     crcInput = []
     for i in range(0, len(output), 2):
         crcInput.append(int(output[i:i+2], 16))
@@ -128,13 +128,13 @@ def setPosition(pos):
     print ("Response 4 ", data)
     time.sleep(2)
 
-init()
+#init()
 #setPosition(0)
 #setPosition(50)
-setPosition(255)
-setPosition(120)
-setPosition(255)
-setPosition(120)
+#setPosition(255)
+#setPosition(120)
+#setPosition(255)
+#setPosition(120)
 #setPosition(255)
 #print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
 #print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])
