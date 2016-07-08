@@ -8,27 +8,40 @@ speed = 0;
 force = 0;
 position = 0;
 ser = 0
+"""Variables for building command strings"""
+deviceId = "09"
+readHoldingRegister = "03"
+presetSingleRegister = "06"
+presetMultipleRegister = "10"
+masterReadWriteMultipleRegisters = "17"
 
+"""This CRC algoritm generates the last 2 bytes of the command string
+    input is an int array holding all the parameters of the message
+    output is """
 def appendCrc(message):
     n = len(message)
     crc = int("ffff", 16)
     polynomial = int("a001", 16)
 
     for i in range(0, n):
+        #print("i: ", i)
         crc = crc ^ message[i]
-        for j in range(1, 8):
+        for j in range(1, 9):
+            #print("j: ", j)
             if crc & 1:
                 crc = crc >> 1
+                #print(crc)
                 crc = crc ^ polynomial
             else:
                 crc = crc >> 1
+
+    #print(crc)
     lowByte = crc & int("ff", 16)
     highByte = (crc & int("ff00", 16)) >> 8
 
-    print(message)
-    print(lowByte, highByte)
-    amsg = message + str(lowByte) + str(highByte)
-    return amsg
+    #print(message)
+    #print(lowByte, highByte)
+    return [lowByte, highByte]
 
 
 def init():
