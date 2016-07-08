@@ -18,7 +18,7 @@ masterReadWriteMultipleRegisters = "17"
 """This CRC algoritm generates the last 2 bytes of the command string
     input is an int array holding all the parameters of the message
     output is """
-def appendCrc(message):
+def calculateCrc(message):
     n = len(message)
     crc = int("ffff", 16)
     polynomial = int("a001", 16)
@@ -30,7 +30,7 @@ def appendCrc(message):
             #print("j: ", j)
             if crc & 1:
                 crc = crc >> 1
-                #print(crc)
+                #print(crc)+
                 crc = crc ^ polynomial
             else:
                 crc = crc >> 1
@@ -41,8 +41,24 @@ def appendCrc(message):
 
     #print(message)
     #print(lowByte, highByte)
-    return [lowByte, highByte]
+    return [format(lowByte, 'x'), format(highByte, 'x')]
 
+
+"""Builds a command string. Doesn't work for all function codes at the moment
+    Should work for PresetMultipleRegisters"""
+def buildCommandString(slaveId, functionCode, register, numRegisters, numBytes, bytes):
+    while len(numRegisters) < 4:
+        numRegisters = "0" + numRegisters
+    while(len(numBytes) < 2):
+        numBytes = "0" + numBytes
+    output = slaveId + functionCode + register + numRegisters + numBytes + bytes
+    crcInput = []
+    for i in range(0, len(output), 2):
+        crcInput.append(int(output[i:i+2], 16))
+    print crcInput
+    crc = calculateCrc(crcInput)
+    output = output + str(crc[0]) + str(crc[1])
+    return output
 
 def init():
     # type: () -> object
@@ -97,7 +113,8 @@ def setPosition(pos):
 
     print(strpos)
     #strpos = "FFFFFF"
-    ser.write(binascii.unhexlify("091003E8000306090000" + strpos + "FFFF7219"))
+    commandString = buildCommandString(deviceId, presetMultipleRegister, "03E8", "3", "6", "090000" + strpos + "FFFF")
+    ser.write(binascii.unhexlify(commandString))
     data_raw = ser.readline()
     print(data_raw)
     data = binascii.hexlify(data_raw)
@@ -106,4 +123,8 @@ def setPosition(pos):
 
 init()
 setPosition(0)
-print appendCrc([9, 16, 3, 232, 0, 3, 6, 1, 0, 0, 0, 0, 0])
+setPosition(50)
+setPosition(100)
+setPosition(255)
+print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
+#print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])
