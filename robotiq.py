@@ -95,20 +95,10 @@ def demo():
     #ser = init()
     while (True):
         print ("Close gripper")
-        ser.write(binascii.unhexlify("091003E8000306090000FFFFFF4229"))
-        data_raw = ser.readline()
-        print(data_raw)
-        data = binascii.hexlify(data_raw)
-        print ("Response 3 ", data)
-        time.sleep(2)
+        setPosition(255)
 
         print ("Open gripper")
-        ser.write(binascii.unhexlify("091003E800030609000000FFFF7219"))
-        data_raw = ser.readline()
-        print(data_raw)
-        data = binascii.hexlify(data_raw)
-        print ("Response 4 ", data)
-        time.sleep(2)
+        setPosition(0)
 
 def setPosition(pos):
     if(pos < 0 or pos > 255):
