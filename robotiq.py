@@ -40,8 +40,14 @@ def calculateCrc(message):
     highByte = (crc & int("ff00", 16)) >> 8
 
     #print(message)
-    #print(lowByte, highByte)
-    return [format(lowByte, 'x'), format(highByte, 'x')]
+    print(lowByte, highByte)
+    out1 = format(lowByte, 'x')
+    out2 = format(highByte, 'x')
+    if len(out1) < 2:
+        out1 = "0" + out1
+    if len(out2) < 2:
+        out2 = "0" + out2
+    return [out1, out2]
 
 
 """Builds a command string. Doesn't work for all function codes at the moment
@@ -114,6 +120,7 @@ def setPosition(pos):
     print(strpos)
     #strpos = "FFFFFF"
     commandString = buildCommandString(deviceId, presetMultipleRegister, "03E8", "3", "6", "090000" + strpos + "FFFF")
+    print(commandString)
     ser.write(binascii.unhexlify(commandString))
     data_raw = ser.readline()
     print(data_raw)
@@ -122,9 +129,12 @@ def setPosition(pos):
     time.sleep(2)
 
 init()
-setPosition(0)
-setPosition(50)
-setPosition(100)
+#setPosition(0)
+#setPosition(50)
 setPosition(255)
-print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
+setPosition(120)
+setPosition(255)
+setPosition(120)
+#setPosition(255)
+#print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
 #print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])
