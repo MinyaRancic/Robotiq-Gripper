@@ -49,15 +49,17 @@ def calculateCrc(message):
         out2 = "0" + out2
     return [out1, out2]
 
+def readHoldingRegisters(slaveId, register, numRegisters)
+
 
 """Builds a command string. Doesn't work for all function codes at the moment
     Should work for PresetMultipleRegisters"""
-def buildCommandString(slaveId, functionCode, register, numRegisters, numBytes, inputBytes):
+def buildCommandString(slaveId, functionCode, readRegister = None, numReadRegisters = None, writeRegisters = None, numWriteRegisters = None, numBytes = None, inputBytes = None):
     while len(numRegisters) < 4:
         numRegisters = "0" + numRegisters
     while(len(numBytes) < 2):
         numBytes = "0" + numBytes
-    output = slaveId + functionCode + register + numRegisters + numBytes + inputBytes
+    output = str(slaveId) + str(functionCode) + str(readRegister) + str(numReadRegisters) + str(writeRegisters) + str(numWriteRegisters) + str(numBytes) + str(inputBytes)
     crcInput = []
     for i in range(0, len(output), 2):
         crcInput.append(int(output[i:i+2], 16))
@@ -127,4 +129,5 @@ def setPosition(pos):
 #setPosition(120)
 #setPosition(255)
 #print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
+buildCommandString(deviceId, "10", "03E8", "3")
 #print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])
