@@ -82,6 +82,8 @@ def init():
     reload(sys)
     sys.setdefaultencoding('utf-8')
     global ser
+
+
     ser = serial.Serial(port='COM9', baudrate=115200, timeout=1,
                         parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     counter = 0
@@ -111,6 +113,7 @@ def demo():
         print ("Open gripper")
         setPosition(0)
 
+"""Sets the position of the gripper. Note that speed and force will always be the previous used unless specified"""
 def setPosition(nPos, nSpeed = None, nForce = None):
     global speed
     global force
@@ -132,8 +135,12 @@ def setPosition(nPos, nSpeed = None, nForce = None):
     strSpeed = hex(speed)[2:]
     strForce = hex(force)[2:]
 
-    while(len(strpos) < 2):
+    while len(strpos) < 2:
         strpos = "0" + strpos
+    while len(strSpeed) < 2:
+        strSpeed = "0" + strSpeed
+    while len(strForce) < 2:
+        strForce = "0" + strForce
 
     print(strpos)
     #strpos = "FFFFFF"
@@ -144,17 +151,19 @@ def setPosition(nPos, nSpeed = None, nForce = None):
     print(data_raw)
     data = binascii.hexlify(data_raw)
     print ("Response 4 ", data)
-    time.sleep(2)
+    return data
 
-#init()
-#setPosition(0)
-#setPosition(50)
-#setPosition(255)
-#setPosition(120)
-#setPosition(255)
-#setPosition(120)
-#setPosition(255)
+def setSpeed(nSpeed):
+    global speed
+    speed = nSpeed
+
+def setForce(nForce):
+    global force
+    force = nForce
+
+
+
 #print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
-print buildCommandString(deviceId, "3", "07D0", "2")
-print buildCommandString(deviceId, "10", writeRegister = "03E9", numWriteRegisters = "2", numBytes = "4", inputBytes = "60E63CC8")
+#print buildCommandString(deviceId, "3", "07D0", "2")
+#print buildCommandString(deviceId, "10", writeRegister = "03E9", numWriteRegisters = "2", numBytes = "4", inputBytes = "60E63CC8")
 #print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])

@@ -1,0 +1,36 @@
+classdef RobotiqGripper < matlab.mixin.SetGet
+    % Matlab class to control the robotiq 2-finger gripper
+    %   class sends arguments to a python script that controls the gripper
+    %   over rs-485 serial. Done this way because matlab does not handle
+    %   res-485 serial well.
+    %   M. Rancic, 2016
+    properties(SetAccess = 'public', GetAccess = 'public')
+        Position
+        Speed
+        Force
+        PyControl
+        IsInit
+    end
+    
+    methods(Access = 'public')
+        function obj = RobotiqGripper
+
+        end
+        
+        function delete(obj)
+            delete(obj);
+        end
+        
+        function init(obj)
+            obj.Position = 0;
+            obj.Speed = 255;
+            obj.Force = 255;
+            
+            try
+                obj.PyControl = py.importlib.import_module('robotiq');
+            catch
+                error('Cannot find the python class in your path. Are you sure you have it downloaded?');
+            end
+        end
+    end
+end
