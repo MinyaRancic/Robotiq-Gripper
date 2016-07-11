@@ -103,38 +103,49 @@ classdef RobotiqGripper < matlab.mixin.SetGet
             tFault = tFault(11:12);
             switch(tFault)
                 case '0'
+                    fault = 'No fault';
                 case '5'
+                    fault = 'Action delayed, activation (reactivation) must be completed prior to renewed action.';
                 case '7'
+                    fault = 'The activation bit must be set prior to action';
                 case '8'
+                    fault = 'Maximum operating temperature exceeded, wait for cool-down.';
                 case 'A'
+                    fault = 'Under minimum operating voltage.';
                 case 'B'
+                    fault = 'Automatic release in progress.';
                 case 'C'
+                    fault = 'Internal processor fault';
                 case 'D'
+                    fault = 'Activation fault, verify that no interference or other error occurred.';
                 case 'E'
+                    fault = 'Overcurrent triggered.';
                 case 'F'
+                    fault = ' Automatic release completed.';
                 otherwise
+                    fault = 'this shouldn''t have happened but do''t worry about it';
             end
         end
         
         function current = getCurrent(obj)
             response = obj.PyControl.checkStatus();
-            tCurrent = char(response)
-            current = hex2dec(tCurrent(17:18))
+            tCurrent = char(response);
+            current = hex2dec(tCurrent(17:18));
         end
         
         function detect = objDetection(obj)
             response = obj.PyControl.checkStatus();
-            tDetect = char(response)
-            tDetect = HexToBinaryVector(tDetect(7))
-            tDetect = tDetect(1:2)
+            tDetect = char(response);
+            tDetect = dec2bin(hex2dec(tDetect(7)));
+            tStatus = bin2dec(tStatus(3:4));
             switch tDetect
-                case [0, 0]
+                case 0
                     detect = false;
-                case [0, 1]
+                case 1
                     detect = true;
-                case [1, 0]
+                case 2
                     detect = true;
-                case [1, 1]
+                case 3
                     detect = false;
                 otherwise
                     error('Something went wrong while object detecting.');
@@ -143,20 +154,20 @@ classdef RobotiqGripper < matlab.mixin.SetGet
         
         function status = getStatus(obj)
             response = obj.PyControl.checkStatus();
-            tStatus = char(response)
-            tStatus = HexToBinaryVector(tStatus(7))
-            tStatus = tStatus(3:4)
+            tStatus = char(response);
+            tStatus = dec2bin(hex2dec(tStatus(7)));
+            tStatus = bin2dec(tStatus(3:4));
             switch tStatus
-                case [0, 0]
-                    status = false;
-                case [0, 1]
-                    status = true;
-                case [1, 0]
-                    status = true;
-                case [1, 1]
-                    status = false;
+                case 0
+                    status = 'Gripper is in reset ( or automatic release ) state. See Fault Status if Gripper is activated.';
+                case 1
+                    status = 'Activation in progress.';
+                case 2
+                    status = 'Not used. Something went wrong';
+                case 3
+                    status = 'Activation has been completed';
                 otherwise
-                    error('Something went wrong while object detecting.');
+                    error('Something went wrong while checking the status.');
             end
         end
         

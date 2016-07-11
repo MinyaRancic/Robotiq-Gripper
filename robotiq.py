@@ -162,7 +162,7 @@ def setPosition(nPos, nSpeed=None, nForce=None):
     print(data_raw)
     data = binascii.hexlify(data_raw)
     print ("Response 4 ", data)
-    #time.sleep(2)
+    time.sleep(2)
     return data
 
 

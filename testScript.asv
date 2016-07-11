@@ -1,0 +1,18 @@
+clear;
+clc;
+
+t = timer('TimerFcn', 'data[i] = toby.getCurrent(); i++; plot(data);', 'StartDelay', .1);
+toby = RobotiqGripper;
+toby.init;
+toby.Speed = 255;
+toby.Force = 255;
+i = 1;
+data = zeros(10000);
+while true
+    toby.Position = 255;
+    wait(.5);
+    toby.Position = 0;
+    plot(data);
+    drawnow;
+    wait(.5);
+end

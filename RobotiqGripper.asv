@@ -99,14 +99,78 @@ classdef RobotiqGripper < matlab.mixin.SetGet
         %% Other Gripper functions.
         function fault = getFault(obj)
             response = obj.PyControl.checkStatus();
-            fault = char(response)(11:12)
+            tFault = char(response);
+            tFault = tFault(11:12);
+            switch(tFault)
+                case '0'
+                    fault = 'No fault';
+                case '5'
+                    fault = 'Action delayed, activation (reactivation) must be completed prior to renewed action.';
+                case '7'
+                    fault = 'The activation bit must be set prior to action';
+                case '8'
+                    fault = 'Maximum operating temperature exceeded, wait for cool-down.';
+                case 'A'
+                    fault = 'Under minimum operating voltage.';
+                case 'B'
+                    fault = 'Automatic release in progress.';
+                case 'C'
+                    fault = 'Internal processor fault';
+                case 'D'
+                    fault = 'Activation fault, verify that no interference or other error occurred.';
+                case 'E'
+                    fault = 'Overcurrent triggered.';
+                case 'F'
+                    fault = ' Automatic release completed.';
+                otherwise
+                    fault = 'this shouldnt have happened but don"t worry about it';
+            end
         end
         
         function current = getCurrent(obj)
             response = obj.PyControl.checkStatus();
-            tCurrent
-            current = char(response)(17:18)
+            tCurrent = char(response);
+            current = hex2dec(tCurrent(17:18));
         end
+        
+        function detect = objDetection(obj)
+            response = obj.PyControl.checkStatus();
+            tDetect = char(response);
+            tDetect = hex2dec(tDetect(7));
+            switch tDetect
+                case 0
+                    detect = false;
+                case 1
+                    detect = true;
+                case 2
+                    detect = true;
+                case 3
+                    detect = false;
+                otherwise
+                    error('Something went wrong while object detecting.');
+            end
+        end
+        
+        function status = getStatus(obj)
+            response = obj.PyControl.checkStatus();
+            tStatus = char(response);
+            tStatus = hex2dec(tStatus(7))
+            tStatus = hext2dec(tStatus(3:4))
+            switch tStatus
+                case 0
+                    status = 'Gripper is in reset ( or automatic release ) state. See Fault Status if Gripper is activated.';
+                case 1
+                    status = 'Activation in progress.';
+                case 2
+                    status = 'Not used. Something went wrong';
+                case 3
+                    status = 'Activation is completed';
+                otherwise
+                    error('Something went wrong while checking the status.');
+            end
+        end
+        
+        
     end
     
 end
