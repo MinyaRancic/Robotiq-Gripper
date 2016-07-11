@@ -14,32 +14,36 @@ readHoldingRegister = "03"
 presetSingleRegister = "06"
 presetMultipleRegister = "10"
 masterReadWriteMultipleRegisters = "17"
+firstReadRegister = "07D0"
+firstWriteRegister = "03E8"
 
 """This CRC algoritm generates the last 2 bytes of the command string
     input is an int array holding all the parameters of the message
     output is """
+
+
 def calculateCrc(message):
     n = len(message)
     crc = int("ffff", 16)
     polynomial = int("a001", 16)
 
     for i in range(0, n):
-        #print("i: ", i)
+        # print("i: ", i)
         crc = crc ^ message[i]
         for j in range(1, 9):
-            #print("j: ", j)
+            # print("j: ", j)
             if crc & 1:
                 crc = crc >> 1
-                #print(crc)+
+                # print(crc)+
                 crc = crc ^ polynomial
             else:
                 crc = crc >> 1
 
-    #print(crc)
+    # print(crc)
     lowByte = crc & int("ff", 16)
     highByte = (crc & int("ff00", 16)) >> 8
 
-    #print(message)
+    # print(message)
     print(lowByte, highByte)
     out1 = format(lowByte, 'x')
     out2 = format(highByte, 'x')
@@ -50,11 +54,12 @@ def calculateCrc(message):
     return [out1, out2]
 
 
-
 """Builds a command string. Doesn't work for all function codes at the moment
     Should work for PresetMultipleRegisters"""
-def buildCommandString(slaveId, functionCode, readRegister = "", numReadRegisters = "", writeRegister = "", numWriteRegisters = "", numBytes = "", inputBytes = ""):
-   
+
+
+def buildCommandString(slaveId, functionCode, readRegister="", numReadRegisters="", writeRegister="",
+                       numWriteRegisters="", numBytes="", inputBytes=""):
     while numReadRegisters != "" and len(str(numReadRegisters)) < 4:
         numReadRegisters = "0" + numReadRegisters
     while numWriteRegisters != "" and len(str(numWriteRegisters)) < 4:
@@ -67,22 +72,23 @@ def buildCommandString(slaveId, functionCode, readRegister = "", numReadRegister
         writeRegister = "0" + writeRegister
     while functionCode != "" and (len(str(functionCode)) < 2):
         functionCode = "0" + functionCode
-        
-    output = str(slaveId) + str(functionCode) + str(readRegister) + str(numReadRegisters) + str(writeRegister) + str(numWriteRegisters) + str(numBytes) + str(inputBytes)
+
+    output = str(slaveId) + str(functionCode) + str(readRegister) + str(numReadRegisters) + str(writeRegister) + str(
+        numWriteRegisters) + str(numBytes) + str(inputBytes)
     crcInput = []
     for i in range(0, len(output), 2):
-        crcInput.append(int(output[i:i+2], 16))
+        crcInput.append(int(output[i:i + 2], 16))
     print crcInput
     crc = calculateCrc(crcInput)
     output = output + str(crc[0]) + str(crc[1])
     return output
+
 
 def init():
     # type: () -> object
     reload(sys)
     sys.setdefaultencoding('utf-8')
     global ser
-
 
     ser = serial.Serial(port='COM9', baudrate=115200, timeout=1,
                         parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
@@ -104,8 +110,9 @@ def init():
         time.sleep(1)
     return ser
 
+
 def demo():
-    #ser = init()
+    # ser = init()
     while (True):
         print ("Close gripper")
         setPosition(255)
@@ -113,11 +120,14 @@ def demo():
         print ("Open gripper")
         setPosition(0)
 
+
 """Sets the position of the gripper. Note that speed and force will always be the previous used unless specified"""
-def setPosition(nPos, nSpeed = None, nForce = None):
+
+
+def setPosition(nPos, nSpeed=None, nForce=None):
     global speed
     global force
-    global  position
+    global position
     if nPos != None:
         if nPos < 0 or nPos > 255:
             return 'Error: Speed must be between 0 and 255'
@@ -143,27 +153,35 @@ def setPosition(nPos, nSpeed = None, nForce = None):
         strForce = "0" + strForce
 
     print(strpos)
-    #strpos = "FFFFFF"
-    commandString = buildCommandString(deviceId, presetMultipleRegister, "03E8", "3", "6", "090000" + strpos + strSpeed + strForce)
+    # strpos = "FFFFFF"
+    commandString = buildCommandString(deviceId, presetMultipleRegister, "03E8", "3", "6",
+                                       "090000" + strpos + strSpeed + strForce)
     print(commandString)
     ser.write(binascii.unhexlify(commandString))
     data_raw = ser.readline()
     print(data_raw)
     data = binascii.hexlify(data_raw)
     print ("Response 4 ", data)
+    #time.sleep(2)
     return data
+
 
 def setSpeed(nSpeed):
     global speed
     speed = nSpeed
+
 
 def setForce(nForce):
     global force
     force = nForce
 
 
+def checkStatus():
+    command = buildCommandString(deviceId, readHoldingRegister, readRegister=firstReadRegister, numReadRegisters="3")
+    ser.write(binascii.unhexlify(command))
+    return binascii.hexlify(ser.readline())
 
-#print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
-#print buildCommandString(deviceId, "3", "07D0", "2")
-#print buildCommandString(deviceId, "10", writeRegister = "03E9", numWriteRegisters = "2", numBytes = "4", inputBytes = "60E63CC8")
-#print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])
+    # print buildCommandString(deviceId, "10", "03E8", "3", "6", "090000FFFFFF")
+    # print buildCommandString(deviceId, "3", "07D0", "2")
+    # print buildCommandString(deviceId, "10", writeRegister = "03E9", numWriteRegisters = "2", numBytes = "4", inputBytes = "60E63CC8")
+    # print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])
