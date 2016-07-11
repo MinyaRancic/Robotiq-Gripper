@@ -11,6 +11,5 @@ data = zeros(10000);
 while true
     toby.Position = 255;
     toby.Position = 0;
-    plot(data);
-    drawnow;
+    pause(.01);
 end

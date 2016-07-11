@@ -1,24 +1,59 @@
 classdef RobotiqGripper < matlab.mixin.SetGet
-    % Matlab class to control the robotiq 2-finger gripper
-    %   class sends arguments to a python script that controls the gripper
-    %   over rs-485 serial. Done this way because matlab does not handle
-    %   res-485 serial well.
-    %   M. Rancic, 2016
-    properties(SetAccess = 'public', GetAccess = 'public')
-        Position
-        Speed
-        Force
-        PyControl
-        IsInit
-    end
+    %    Matlab class to control the robotiq 2-finger gripper
+    %    class sends arguments to a python script that controls the gripper
+    %    over rs-485 serial.
+    %    
+    %    obj = RobotiqGripper creates a RobotiqGripper object to connect to
+    %    a Robotiq 2-finger adaptive gripper
+    %
+    % RobotiqGripper Methods
+    %    init        - Initialize the RobotiqGripper object.
+    %    get         - Query properties of the RobotiqGripper object.
+    %    delete      - Uninitialize and remove the RobotiqGripper object.
+    %    objDetect   - Returns whether or not an object has been detected.
+    %Position
+    % RobotiqGripper Properties 
+    %    Position    - the  of the gripper between 0 and 255
+    %    Speed       - the Speed of the gripper between 0 and 255
+    %    Force       - the Force of the gripper between 0 and 255
+    %    PyControl   - a python module object that contains the Robotiq.py
+    %                  script
+    %    IsInit      - a boolean that is true if the gripper has finished 
+    %                  initializing
+    %    Current     - the Current going through the motor of the gripper
+    %    Fault       - the current fault status of the gripper
+    %    Status      - the status of the gripper
+    %
+    % Example:
+    %    % Create, Initialize, and close
+    %    Grip = RobotiqGripper;
+    %    Grip.init;
+    %    set(grip, 'Position', 255);
+    %  M. Rancic, 2016
     
+    %----------------------------------------------------------------------
+    %% General Properties
+    %----------------------------------------------------------------------
+    properties(SetAccess = 'public', GetAccess = 'public')
+        Position    %int16 position of gripper from 0-255
+        Speed       %int16 speed of gripper from 0-255
+        Force       %int16 force of gripper from 0-255
+        PyControl   %Python Module that communicates with the gripper
+        IsInit      %boolean storing initilization status
+        Current     %the Current through motorws in mA
+        Fault       %Fault status of the gripper
+        Status      %
+    end
+    %----------------------------------------------------------------------
+    %% Constructor, destructor, and init. 
+    %----------------------------------------------------------------------
     methods(Access = 'public')
-        %% Constructor, destructor, and init. 
         function obj = RobotiqGripper
-
+            obj.IsInit = false;
         end
         
         function delete(obj)
+            obj.PyControl.closeSerial();
             delete(obj);
         end
         
@@ -34,14 +69,15 @@ classdef RobotiqGripper < matlab.mixin.SetGet
             py.reload(obj.PyControl);
             obj.PyControl.init();
             obj.IsInit = true;
-            obj.Position = int16(0);
+            pause(.01);
             obj.Speed = int16(255);
             obj.Force = int16(255);
+            obj.Position = int16(0);
         end
     end
     
+    %% Get functions. Speed queries gripper, Force and Pos read propety
     methods
-        %% Get functions. Speed queries gripper, Force and Pos read propety
         function Position = get.Position(obj)
             if(obj.IsInit)
                 response = obj.PyControl.checkStatus()
@@ -97,7 +133,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
         end
         
         %% Other Gripper functions.
-        function fault = getFault(obj)
+        function fault = get.Fault(obj)
             response = obj.PyControl.checkStatus();
             tFault = char(response);
             tFault = tFault(11:12);
@@ -127,7 +163,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
             end
         end
         
-        function current = getCurrent(obj)
+        function current = get.Current(obj)
             response = obj.PyControl.checkStatus();
             tCurrent = char(response);
             current = hex2dec(tCurrent(17:18));
@@ -137,7 +173,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
             response = obj.PyControl.checkStatus();
             tDetect = char(response);
             tDetect = dec2bin(hex2dec(tDetect(7)));
-            tStatus = bin2dec(tStatus(3:4));
+            tDetect = bin2dec(tDetect(3:4));
             switch tDetect
                 case 0
                     detect = false;
@@ -152,7 +188,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
             end
         end
         
-        function status = getStatus(obj)
+        function status = get.Status(obj)
             response = obj.PyControl.checkStatus();
             tStatus = char(response);
             tStatus = dec2bin(hex2dec(tStatus(7)));

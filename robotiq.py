@@ -44,7 +44,7 @@ def calculateCrc(message):
     highByte = (crc & int("ff00", 16)) >> 8
 
     # print(message)
-    print(lowByte, highByte)
+    #print(lowByte, highByte)
     out1 = format(lowByte, 'x')
     out2 = format(highByte, 'x')
     if len(out1) < 2:
@@ -78,7 +78,7 @@ def buildCommandString(slaveId, functionCode, readRegister="", numReadRegisters=
     crcInput = []
     for i in range(0, len(output), 2):
         crcInput.append(int(output[i:i + 2], 16))
-    print crcInput
+    #print crcInput
     crc = calculateCrc(crcInput)
     output = output + str(crc[0]) + str(crc[1])
     return output
@@ -97,16 +97,16 @@ def init():
         counter = counter + 1
         ser.write(binascii.unhexlify("091003E80003060000000000007330"))
         data_raw = ser.readline()
-        print(data_raw)
+        #print(data_raw)
         data = binascii.hexlify(data_raw)
-        print ("Response 1 ", data)
+       # print ("Response 1 ", data)
         time.sleep(0.01)
 
         ser.write(binascii.unhexlify("090307D0000185CF"))
         data_raw = ser.readline()
-        print(data_raw)
+        #print(data_raw)
         data = binascii.hexlify(data_raw)
-        print ("Response 2 ", data)
+        #print ("Response 2 ", data)
         time.sleep(1)
     return ser
 
@@ -114,10 +114,10 @@ def init():
 def demo():
     # ser = init()
     while (True):
-        print ("Close gripper")
+        #print ("Close gripper")
         setPosition(255)
 
-        print ("Open gripper")
+        #print ("Open gripper")
         setPosition(0)
 
 
@@ -152,17 +152,19 @@ def setPosition(nPos, nSpeed=None, nForce=None):
     while len(strForce) < 2:
         strForce = "0" + strForce
 
-    print(strpos)
+    #print(strpos)
     # strpos = "FFFFFF"
     commandString = buildCommandString(deviceId, presetMultipleRegister, "03E8", "3", "6",
                                        "090000" + strpos + strSpeed + strForce)
-    print(commandString)
+    #print(commandString)
     ser.write(binascii.unhexlify(commandString))
+    time.sleep(.001)
+
     data_raw = ser.readline()
-    print(data_raw)
+    #print(data_raw)
     data = binascii.hexlify(data_raw)
-    print ("Response 4 ", data)
-    time.sleep(2)
+    #print ("Response 4 ", data)
+    #time.sleep(2)
     return data
 
 
@@ -185,3 +187,6 @@ def checkStatus():
     # print buildCommandString(deviceId, "3", "07D0", "2")
     # print buildCommandString(deviceId, "10", writeRegister = "03E9", numWriteRegisters = "2", numBytes = "4", inputBytes = "60E63CC8")
     # print calculateCrc([9, 16, 3, 232, 0, 3, 6, 9, 0, 0, 255, 255, 255])
+
+def closeSerial():
+    ser.close();
