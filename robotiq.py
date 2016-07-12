@@ -101,13 +101,13 @@ def buildCommandString(slaveId, functionCode, readRegister="", numReadRegisters=
     return output
 
 """Initializes serial communcations and activates the gripper."""
-def init():
+def init(comPort):
     # type: () -> object
     reload(sys)
     sys.setdefaultencoding('utf-8')
     global ser
 
-    ser = serial.Serial(port='COM9', baudrate=115200, timeout=1,
+    ser = serial.Serial(port = comPort, baudrate=115200, timeout=1,
                         parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS)
     counter = 0
     while counter < 1:

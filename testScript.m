@@ -5,7 +5,7 @@ current = 0;
 %t = timer('TimerFcn', 'current = get(toby, ''Current'');', 'StartDelay', 1, 'Period', 1, 'ExecutionMode', 'FixedRate');
 %start(t);
 toby = RobotiqGripper;
-toby.init;
+toby.init('COM9');
 toby.Speed = 120;
 toby.Force = 255;
 i = 1;

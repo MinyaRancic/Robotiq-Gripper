@@ -57,7 +57,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
             delete(obj);
         end
         
-        function init(obj)
+        function init(obj, comPort)
             if count(py.sys.path,'') == 0
                 insert(py.sys.path,int32(0),'');
             end
@@ -67,7 +67,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
                 error('Cannot find the python class in your path. Are you sure you have it downloaded?');
             end
             py.reload(obj.PyControl);
-            obj.PyControl.init();
+            obj.PyControl.init(comPort);
             obj.IsInit = true;
             pause(.01);
             obj.Speed = int16(255);

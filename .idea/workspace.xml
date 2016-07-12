@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b9eb738-e81e-4799-99d4-fb6c1a2ef71e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RobotiqGripper.asv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/testScript.asv" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RobotiqGripper.m" afterPath="$PROJECT_DIR$/RobotiqGripper.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/robotiq.py" afterPath="$PROJECT_DIR$/robotiq.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testScript.m" afterPath="$PROJECT_DIR$/testScript.m" />
     </list>
     <ignored path="Robotiq-Gripper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,8 +51,8 @@
       <file leaf-file-name="robotiq.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/robotiq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="19" column="57" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="57" />
+            <state relative-caret-position="462">
+              <caret line="119" column="24" selection-start-line="119" selection-start-column="24" selection-end-line="119" selection-end-column="24" />
               <folding>
                 <element signature="e#1401#1414#0" expanded="true" />
               </folding>
@@ -510,6 +506,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="455" column="4" selection-start-line="455" selection-start-column="4" selection-end-line="455" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -523,8 +520,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/robotiq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="19" column="57" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="57" />
+        <state relative-caret-position="462">
+          <caret line="119" column="24" selection-start-line="119" selection-start-column="24" selection-end-line="119" selection-end-column="24" />
           <folding>
             <element signature="e#1401#1414#0" expanded="true" />
           </folding>
