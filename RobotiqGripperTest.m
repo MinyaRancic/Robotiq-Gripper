@@ -1,4 +1,4 @@
-classdef RobotiqGripper < matlab.mixin.SetGet
+classdef RobotiqGripperTest < matlab.mixin.SetGet
     %    Matlab class to control the robotiq 2-finger gripper
     %    class sends arguments to a python script that controls the gripper
     %    over rs-485 serial.
@@ -43,12 +43,13 @@ classdef RobotiqGripper < matlab.mixin.SetGet
         Current     %the Current through motorws in mA
         Fault       %Fault status of the gripper
         Status      %
+        Time
     end
     %----------------------------------------------------------------------
     %% Constructor, destructor, and init. 
     %----------------------------------------------------------------------
     methods(Access = 'public')
-        function obj = RobotiqGripper
+        function obj = RobotiqGripperTest
             obj.IsInit = false;
         end
         
@@ -73,10 +74,12 @@ classdef RobotiqGripper < matlab.mixin.SetGet
             obj.Speed = int16(255);
             obj.Force = int16(255);
             obj.Position = int16(0);
+            obj.Time = timer('BusyMode', 'queue', 'ExecutionMode', 'FixedRate', 'Period', .01, 'TimerFcn', {@obj.goToPosition, obj.PyControl, obj.Position});
+            start(obj.Time);
         end
     end
     
-    %% Get functions. Speed queries gripper, Force and Pos read propety
+    %% Get functions. Speed queries gripper,force and Pos read propety
     methods
         function Position = get.Position(obj)
             if(obj.IsInit)
@@ -106,12 +109,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
 
         %% Set Functions: All check for initilization before running
         function set.Position(obj, value)
-            if(obj.IsInit)
-                %obj.Position = int16(value);
-                obj.PyControl.setPosition(int16(value));
-            else
-                error('Must run init() first.')
-            end
+            obj.Position = value;
         end
         
         function set.Speed(obj, value)
@@ -205,6 +203,15 @@ classdef RobotiqGripper < matlab.mixin.SetGet
                 otherwise
                     error('Something went wrong while checking the status.');
             end
+        end
+        
+        function goToPosition(~, ~, obj, PyControl, Position)
+            %if(obj.IsInit)
+                %obj.Position = int16(value);
+                PyControl.setPosition(Position);
+           % else
+           %     error('Must run init() first.')
+           % end
         end
         
         

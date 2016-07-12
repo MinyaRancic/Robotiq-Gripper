@@ -1,13 +1,37 @@
 # robotiq.py
+"""
+Python script for contorlling the Robotiq Gripper
+Functions:
+    caclulateCrc()          - Calculates 2 crc bits given a list of int's
+    buildCommandString()    - Given the necessary information, builds the correct command
+    init()                  - Initializes the serial object and makes it global, activates the gripper
+    setPosition()           - Sets the position of the gripper with given speed nad force. Returns the gripper's response
+    setSpeed()              - Sets the global speed variable
+    setForce()              - Sets the global force variable
+    checkStatus()           - Reads all Status registers and returns a hex string. Needs to pe parsed.
+    closeSerial()           - Closes the Serial Port
+
+Variables
+    speed       - The speed of the gripper from 0 to 255
+    force       - The Force of the gripper from 0 to 255
+    position    - The Position of the gripper from 0 to 255
+
+Constants
+    deviceId                            - The slave ID of the gripper
+    readHoldingRegister                 - The function code for reading registers
+    presetSingleRegister                - The function code for writing to a single register
+    presetMultipleRegister              - The function code for writing to multiple registers
+    masterReadWriteMultipleRegisters    - The function code for reading and writing to/from registers simultaneously
+"""
 import serial
 import time
 import binascii
 import sys
 
+"""Variables for Moving the gripper"""
 speed = 0;
 force = 0;
 position = 0;
-ser = 0
 """Variables for building command strings"""
 deviceId = "09"
 readHoldingRegister = "03"
@@ -17,11 +41,7 @@ masterReadWriteMultipleRegisters = "17"
 firstReadRegister = "07D0"
 firstWriteRegister = "03E8"
 
-"""This CRC algoritm generates the last 2 bytes of the command string
-    input is an int array holding all the parameters of the message
-    output is """
-
-
+"""CRC algorithm for building Command Strings"""
 def calculateCrc(message):
     n = len(message)
     crc = int("ffff", 16)
@@ -54,10 +74,7 @@ def calculateCrc(message):
     return [out1, out2]
 
 
-"""Builds a command string. Doesn't work for all function codes at the moment
-    Should work for PresetMultipleRegisters"""
-
-
+"""Builds a command string"""
 def buildCommandString(slaveId, functionCode, readRegister="", numReadRegisters="", writeRegister="",
                        numWriteRegisters="", numBytes="", inputBytes=""):
     while numReadRegisters != "" and len(str(numReadRegisters)) < 4:
@@ -83,7 +100,7 @@ def buildCommandString(slaveId, functionCode, readRegister="", numReadRegisters=
     output = output + str(crc[0]) + str(crc[1])
     return output
 
-
+"""Initializes serial communcations and activates the gripper."""
 def init():
     # type: () -> object
     reload(sys)
@@ -110,7 +127,7 @@ def init():
         time.sleep(1)
     return ser
 
-
+"""Open's and closes the gripper."""
 def demo():
     # ser = init()
     while (True):
@@ -122,8 +139,6 @@ def demo():
 
 
 """Sets the position of the gripper. Note that speed and force will always be the previous used unless specified"""
-
-
 def setPosition(nPos, nSpeed=None, nForce=None):
     global speed
     global force
@@ -167,12 +182,12 @@ def setPosition(nPos, nSpeed=None, nForce=None):
     #time.sleep(2)
     return data
 
-
+"""Sets the Global speed variable."""
 def setSpeed(nSpeed):
     global speed
     speed = nSpeed
 
-
+"""Sets the Global force variable."""
 def setForce(nForce):
     global force
     force = nForce
@@ -190,3 +205,14 @@ def checkStatus():
 
 def closeSerial():
     ser.close();
+
+# init()
+# if __name__ == '__main__':
+#     p = Process(target = setPosition, args = (position, speed, force));
+#     p.start()
+#     p.join()
+
+# time.sleep(2)
+# position = 0
+# time.sleep(2)
+# position = 255

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b9eb738-e81e-4799-99d4-fb6c1a2ef71e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RobotiqGripper.asv" afterPath="$PROJECT_DIR$/RobotiqGripper.asv" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RobotiqGripper.asv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/testScript.asv" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RobotiqGripper.m" afterPath="$PROJECT_DIR$/RobotiqGripper.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/robotiq.py" afterPath="$PROJECT_DIR$/robotiq.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testScript.m" afterPath="$PROJECT_DIR$/testScript.m" />
@@ -19,7 +21,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Robotiq-Gripper$robotiq.coverage" NAME="robotiq Coverage Results" MODIFIED="1468256709101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Robotiq-Gripper$robotiq.coverage" NAME="robotiq Coverage Results" MODIFIED="1468325950109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -32,7 +34,7 @@
             <file leaf-file-name="append_crc.m" pinned="false" current-in-tab="true">
               <entry file="file://$USER_HOME$/Downloads/JLD416PVA/append_crc.m">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="302">
+                  <state relative-caret-position="338">
                     <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
                     <folding />
                   </state>
@@ -53,16 +55,23 @@
       <file leaf-file-name="robotiq.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/robotiq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="166" column="5" selection-start-line="166" selection-start-column="5" selection-end-line="166" selection-end-column="5" />
+            <state relative-caret-position="308">
+              <caret line="19" column="57" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="57" />
               <folding>
-                <element signature="e#13#26#0" expanded="true" />
+                <element signature="e#1401#1414#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Setup Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -83,9 +92,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="961" />
-    <option name="width" value="959" />
-    <option name="height" value="1032" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -113,6 +123,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -133,7 +144,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -407,18 +417,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="961" y="0" width="959" height="1032" extended-state="0" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18172157" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0890625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37888888" sideWeight="0.51222104" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36819172" sideWeight="0.51666665" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37888888" sideWeight="0.48777896" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36819172" sideWeight="0.48333332" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32897604" sideWeight="0.49583334" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -454,10 +465,28 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/robotiq.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1804">
+          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+          <folding>
+            <element signature="e#1401#1414#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/JLD416PVA/append_crc.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robotiq.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="20" column="77" selection-start-line="20" selection-start-column="77" selection-end-line="20" selection-end-column="77" />
           <folding>
-            <element signature="e#13#26#0" expanded="true" />
+            <element signature="e#1401#1414#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -481,13 +510,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="455" column="4" selection-start-line="455" selection-start-column="4" selection-end-line="455" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Downloads/JLD416PVA/append_crc.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
+        <state relative-caret-position="338">
           <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
           <folding />
         </state>
@@ -495,10 +523,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/robotiq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="166" column="5" selection-start-line="166" selection-start-column="5" selection-end-line="166" selection-end-column="5" />
+        <state relative-caret-position="308">
+          <caret line="19" column="57" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="57" />
           <folding>
-            <element signature="e#13#26#0" expanded="true" />
+            <element signature="e#1401#1414#0" expanded="true" />
           </folding>
         </state>
       </provider>

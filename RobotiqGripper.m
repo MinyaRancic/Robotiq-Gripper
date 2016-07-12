@@ -103,6 +103,10 @@ classdef RobotiqGripper < matlab.mixin.SetGet
                 error('Must run init() first.')
             end
         end
+        
+        function IsInit = get.IsInit(obj)
+            IsInit = obj.IsInit;
+        end
 
         %% Set Functions: All check for initilization before running
         function set.Position(obj, value)
@@ -126,7 +130,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
         function set.Force(obj, value)
             if(obj.IsInit)
                 obj.PyControl.setForce(int16(value));
-                obj.Force = int16(value);
+%                 obj.Force = int16(value);
             else
                 error('Must run init() first.');
             end
