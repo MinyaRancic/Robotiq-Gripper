@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b9eb738-e81e-4799-99d4-fb6c1a2ef71e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/setup.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="9b9eb738-e81e-4799-99d4-fb6c1a2ef71e" name="Default" comment="" />
     <ignored path="Robotiq-Gripper.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -21,26 +18,6 @@
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
-  </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-            <file leaf-file-name="append_crc.m" pinned="false" current-in-tab="true">
-              <entry file="file://$USER_HOME$/Downloads/JLD416PVA/append_crc.m">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="338">
-                    <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -414,7 +391,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0890625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -510,14 +487,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/JLD416PVA/append_crc.m">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="55" column="3" selection-start-line="55" selection-start-column="3" selection-end-line="55" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -533,6 +502,14 @@
           <folding>
             <element signature="e#1401#1414#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/JLD416PVA/append_crc.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

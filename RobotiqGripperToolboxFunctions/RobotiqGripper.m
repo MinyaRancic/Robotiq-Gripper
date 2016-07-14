@@ -29,7 +29,7 @@ classdef RobotiqGripper < matlab.mixin.SetGet
     %    Grip = RobotiqGripper;
     %    Grip.init;
     %    set(grip, 'Position', 255);
-    %  M. Rancic, 2016
+    %  M. Rancic, M. Kutzer, 2016
     
     %----------------------------------------------------------------------
     %% General Properties
