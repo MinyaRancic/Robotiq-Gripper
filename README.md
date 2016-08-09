@@ -8,3 +8,5 @@ Note: May work on versions before 2014b if in RobotiqGripper.m you replace matla
 This is untested and to be done at your own risk.
 
 Run by constructing a RobotiqGripper object in matlab
+
+You must have the python file in the same directory as your project!
